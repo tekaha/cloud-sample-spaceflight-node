@@ -1,0 +1,44 @@
+_schema-version: 2.0.0
+ID: cloud-sample-spaceflight-node
+version: 1.0.0
+modules:
+  - name: cloud-sample-spaceflight-node-db
+    type: hdb
+    path: db
+    parameters:
+      memory: 256M
+      disk-quota: 256M
+    requires:
+      - name: cloud-sample-spaceflight-node-hdi-container
+  - name: cloud-sample-spaceflight-node-srv
+    type: nodejs
+    path: srv
+    parameters:
+      memory: 512M
+      disk-quota: 256M
+    provides:
+      - name: srv_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: cloud-sample-spaceflight-node-uaa
+      - name: cloud-sample-spaceflight-node-hdi-container
+resources:
+  - name: cloud-sample-spaceflight-node-hdi-container
+    properties:
+      hdi-container-name: '${service-name}'
+    type: com.sap.xs.hdi-container
+  - name: cloud-sample-spaceflight-node-uaa
+    type: com.sap.xs.uaa
+    parameters:
+      service-plan: default
+      config:
+        xsappname: 'cloud-sample-spaceflight-node-${org}-${space}'
+        tenant-mode: dedicated
+        scopes:
+          - name: $XSAPPNAME.Show
+            description: display
+          - name: $XSAPPNAME.Add
+            description: create
+          - name: $XSAPPNAME.Remove
+            description: delete
