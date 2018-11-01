@@ -21,8 +21,20 @@ modules:
         properties:
           url: '${default-url}'
     requires:
-      - name: cloud-sample-spaceflight-node-uaa
       - name: cloud-sample-spaceflight-node-hdi-container
+
+  - name: ui
+    type: html5
+    path: ui
+    parameters:
+       disk-quota: 256M
+       memory: 256M
+    build-parameters:
+       builder: grunt
+    requires:
+     - name: uaa_cloud-sample-spaceflight-node
+     - name: dest_cloud-sample-spaceflight-node
+
 resources:
   - name: cloud-sample-spaceflight-node-hdi-container
     properties:
@@ -42,3 +54,18 @@ resources:
             description: create
           - name: $XSAPPNAME.Remove
             description: delete
+
+  - name: uaa_cloud-sample-spaceflight-node
+    parameters:
+       path: ./xs-security.json
+       service-plan: application
+       service: xsuaa
+    type: org.cloudfoundry.managed-service
+
+
+  - name: dest_cloud-sample-spaceflight-node
+    parameters:
+       service-plan: lite
+       service: destination
+    type: org.cloudfoundry.managed-service
+

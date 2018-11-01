@@ -6,7 +6,6 @@
     "@sap/cds": ">=2.8",
     "express": "^4.16.4",
     "csvtojson": "2.0.8",
-    "sqlite3": "^4.0.3",
     "spaceflight-model": "git://github.com/SAP/cloud-sample-spaceflight"
   },
   "scripts": {
@@ -15,9 +14,7 @@
   },
   "cds": {
     "data": {
-      "model": "db/",
-      "driver": "sqlite",
-      "url": "cloud-sample-spaceflight-node.db"
+      "model": "db/"
     },
     "service": {
       "model": "srv/"
