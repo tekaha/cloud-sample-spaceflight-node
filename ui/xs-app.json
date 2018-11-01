@@ -9,6 +9,10 @@
       "source": "^/ui/(.*)$",
       "target": "$1",
       "localDir": "webapp"
+    },
+    {
+      "source": "^/booking/(.*)$",
+      "destination": "backend"
     }
   ]
 }
